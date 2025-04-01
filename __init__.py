@@ -11,9 +11,19 @@ app = Flask(__name__)
 def hello_world():
     return render_template('hello.html')
 
-@app.route('/contact/')
-def MaPremiereAPI():
-    return render_template('contact.html')
+@app.route("/contact/", methods=["GET", "POST"])
+def contact():
+    confirmation = False
+    if request.method == "POST":
+        # Récupérer les données du formulaire (non enregistrées)
+        nom = request.form.get("nom")
+        prenom = request.form.get("prenom")
+        message = request.form.get("message")
+        
+        # Afficher un message de confirmation
+        confirmation = True
+
+    return render_template("contact.html", confirmation=confirmation)
 
 @app.route('/tawarano/')
 def meteo():
