@@ -39,6 +39,43 @@ def histogramme():
 def contact_form():
  return render_template("contact.html")
 
+YOUR_NAME = "WDgachtout"
+YOUR_EMAIL = "yanisrebas@gmail.com"
+
+@app.route('/commits/')
+def commits():
+    url = "https://api.github.com/repos/WDgachtout/5MCSI_Metriques/commits"
+    
+    with urlopen(url) as response:
+        data = json.load(response)
+
+    minute_counts = [0] * 60
+
+    for commit in data:
+        try:
+            author = commit['commit']['author']
+            author_name = author['name']
+            author_email = author['email']
+            date_str = author['date']
+
+            if author_name == YOUR_NAME or author_email == YOUR_EMAIL:
+                dt = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
+                minute = dt.minute
+                minute_counts[minute] += 1
+        except KeyError:
+            continue
+
+    minutes = list(range(60))
+
+    return render_template("commits.html", minutes=minutes, counts=minute_counts)
+
+@app.route('/extract-minutes/<date_string>')
+def extract_minutes(date_string):
+    date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
+    minutes = date_object.minute
+    return jsonify({'minutes': minutes})
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
