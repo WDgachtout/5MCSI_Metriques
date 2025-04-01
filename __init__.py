@@ -11,9 +11,10 @@ app = Flask(__name__)
 def hello_world():
     return render_template('hello.html')
 
-@app.route("/contact/", methods=["GET", "POST"])
+@app.route("/contact/")
 def contact():
     return render_template("contact.html")
+
 
 @app.route('/tawarano/')
 def meteo():
