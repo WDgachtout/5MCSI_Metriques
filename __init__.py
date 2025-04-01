@@ -80,7 +80,8 @@ def commits_graph():
         return render_template("commits.html", graph_data=graph_data)
     
     except requests.exceptions.RequestException as e:
-        return jsonify({"error": str(e)})
+        return jsonify({"error": "Impossible de récupérer les données depuis l'API GitHub.", "details": str(e)})
+
       
 if __name__ == "__main__":
   app.run(debug=True)
