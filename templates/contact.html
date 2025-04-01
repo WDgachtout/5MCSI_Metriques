@@ -63,6 +63,11 @@
         button:hover {
             background-color: #0056b3;
         }
+        .confirmation {
+            text-align: center;
+            margin-top: 20px;
+            color: green;
+        }
     </style>
 </head>
 <body>
@@ -70,9 +75,14 @@
     <h1>Contactez-moi</h1>
 </header>
 <main>
-    <form method="post" action="#">
+    {% if confirmation %}
+    <div class="confirmation">
+        <h2>Message envoyé avec succès !</h2>
+    </div>
+    {% else %}
+    <form method="post" action="/contact/">
         <h2>Laissez-moi un message</h2>
-        
+
         <label for="nom">Nom :</label><br>
         <input type="text" id="nom" name="nom" placeholder="Votre nom" required><br>
 
@@ -84,6 +94,7 @@
 
         <button type="submit">Envoyer</button>
     </form>
+    {% endif %}
 </main>
 </body>
 </html>
