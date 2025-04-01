@@ -39,6 +39,12 @@ def histogramme():
 def contact():
     return render_template("contact.html")
 
+from flask import Flask, jsonify, render_template
+from datetime import datetime
+import requests
+
+app = Flask(__name__)
+
 @app.route('/commits/')
 def commits_graph():
     # URL de l'API GitHub pour récupérer les commits
@@ -53,9 +59,13 @@ def commits_graph():
         # Extraire les minutes des dates des commits
         commit_minutes = []
         for commit in commits_data:
-            date_string = commit['commit']['author']['date']
-            date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
-            commit_minutes.append(date_object.minute)
+            try:
+                date_string = commit['commit']['author']['date']
+                date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
+                commit_minutes.append(date_object.minute)
+            except KeyError:
+                # Ignorer les commits sans clé 'date'
+                continue
         
         # Compter les occurrences des minutes
         minute_counts = {}
