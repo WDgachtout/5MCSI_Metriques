@@ -15,7 +15,7 @@ def hello_world():
 def MaPremiereAPI():
     return "<h2>Ma page de contact</h2>"
 
-@app.route('/tawarano/')
+@app.route("/tawarano/")
 def meteo():
     response = urlopen('https://samples.openweathermap.org/data/2.5/forecast?lat=0&lon=0&appid=xxx')
     raw_content = response.read()
@@ -39,7 +39,7 @@ def histogramme():
 def contact():
     return render_template("contact.html")
 
-@app.route('/commits/')
+@app.route("/commits/")
 def commits_graph():
     # URL de l'API GitHub pour récupérer les commits
     url = "https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits"
