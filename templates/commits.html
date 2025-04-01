@@ -1,75 +1,39 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes Commits</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7fa;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        h1 {
-            color: #4CAF50;
-            margin-top: 30px;
-        }
-        .container {
-            width: 80%;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        .commits-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        .commit-item {
-            background-color: #f1f1f1;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .commit-item:nth-child(odd) {
-            background-color: #e7e7e7;
-        }
-        .commit-time {
-            color: #555;
-            font-size: 1.1em;
-        }
-    </style>
+    <title>Commits par minute</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>Historique des Commits</h1>
-    <div class="container">
-        <ul class="commits-list" id="commits-list">
-            <!-- Les données seront injectées ici -->
-        </ul>
-    </div>
-
+    <h2>Commits par minute (vos commits uniquement)</h2>
+    <canvas id="commitsChart" width="600" height="400"></canvas>
     <script>
-        // Récupérer les données depuis l'API /api/commits/
-        fetch('/api/commits/')
-            .then(response => response.json())
-            .then(data => {
-                const commitsList = document.getElementById('commits-list');
-                Object.entries(data).forEach(([minute, count]) => {
-                    const listItem = document.createElement('li');
-                    listItem.className = 'commit-item';
-                    listItem.innerHTML = `<p>Minute : <span class="commit-time">${minute}</span>, Nombre de commits : ${count}</p>`;
-                    commitsList.appendChild(listItem);
-                });
-            })
-            .catch(error => {
-                console.error('Erreur lors de la récupération des données :', error);
-                const errorMessage = document.createElement('p');
-                errorMessage.textContent = 'Erreur lors de la récupération des données.';
-                document.body.appendChild(errorMessage);
-            });
+        const minutes = {{ minutes | safe }};
+        const counts = {{ counts | safe }};
+        
+        const ctx = document.getElementById('commitsChart').getContext('2d');
+        const commitsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: minutes,
+                datasets: [{
+                    label: 'Commits par minute',
+                    data: counts
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Minute (0-59)' }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Nombre de commits' }
+                    }
+                }
+            }
+        });
     </script>
 </body>
 </html>
