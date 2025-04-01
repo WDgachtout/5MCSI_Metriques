@@ -46,13 +46,30 @@
 <body>
     <h1>Historique des Commits</h1>
     <div class="container">
-        <ul class="commits-list">
-            {% for commit in commits %}
-                <li class="commit-item">
-                    <p>Commit à la minute : <span class="commit-time">{{ commit }}</span></p>
-                </li>
-            {% endfor %}
+        <ul class="commits-list" id="commits-list">
+            <!-- Les données seront injectées ici -->
         </ul>
     </div>
+
+    <script>
+        // Récupérer les données depuis l'API /api/commits/
+        fetch('/api/commits/')
+            .then(response => response.json())
+            .then(data => {
+                const commitsList = document.getElementById('commits-list');
+                Object.entries(data).forEach(([minute, count]) => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'commit-item';
+                    listItem.innerHTML = `<p>Minute : <span class="commit-time">${minute}</span>, Nombre de commits : ${count}</p>`;
+                    commitsList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération des données :', error);
+                const errorMessage = document.createElement('p');
+                errorMessage.textContent = 'Erreur lors de la récupération des données.';
+                document.body.appendChild(errorMessage);
+            });
+    </script>
 </body>
 </html>
