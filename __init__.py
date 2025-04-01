@@ -59,13 +59,9 @@ def commits_graph():
         # Extraire les minutes des dates des commits
         commit_minutes = []
         for commit in commits_data:
-            try:
-                date_string = commit['commit']['author']['date']
-                date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
-                commit_minutes.append(date_object.minute)
-            except KeyError:
-                # Ignorer les commits sans clé 'date'
-                continue
+            date_string = commit['commit']['author']['date']
+            date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
+            commit_minutes.append(date_object.minute)
         
         # Compter les occurrences des minutes
         minute_counts = {}
@@ -77,10 +73,8 @@ def commits_graph():
         # Préparer les données pour le graphique
         graph_data = [{"minute": minute, "count": count} for minute, count in sorted(minute_counts.items())]
         
-        return render_template("commits.html", graph_data=graph_data)
-    
-    except requests.exceptions.RequestException as e:
-        return jsonify({"error": "Impossible de récupérer les données depuis l'API GitHub.", "details": str(e)})
+        return render_template("commits.html", graph_data=graph_data
+
 
       
 if __name__ == "__main__":
