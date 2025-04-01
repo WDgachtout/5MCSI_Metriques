@@ -13,17 +13,7 @@ def hello_world():
 
 @app.route("/contact/", methods=["GET", "POST"])
 def contact():
-    confirmation = False
-    if request.method == "POST":
-        # Récupérer les données du formulaire (non enregistrées)
-        nom = request.form.get("nom")
-        prenom = request.form.get("prenom")
-        message = request.form.get("message")
-        
-        # Afficher un message de confirmation
-        confirmation = True
-
-    return render_template("contact.html", confirmation=confirmation)
+    return render_template("contact.html")
 
 @app.route('/tawarano/')
 def meteo():
