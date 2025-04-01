@@ -38,7 +38,7 @@ def contact():
 @app.route('/api/commits/')
 def api_commits():
     # URL de l'API GitHub pour récupérer les commits
-    url = "https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits"
+    url = "https://api.github.com/repos/WDgachtout/5MCSI_Metriques/commits"
     
     try:
         # Récupération des données depuis l'API GitHub
