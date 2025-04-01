@@ -39,12 +39,6 @@ def histogramme():
 def contact():
     return render_template("contact.html")
 
-from flask import Flask, jsonify, render_template
-from datetime import datetime
-import requests
-
-app = Flask(__name__)
-
 @app.route('/commits/')
 def commits_graph():
     # URL de l'API GitHub pour récupérer les commits
@@ -75,7 +69,6 @@ def commits_graph():
         
         return render_template("commits.html", graph_data=graph_data
 
-
-      
+     
 if __name__ == "__main__":
   app.run(debug=True)
