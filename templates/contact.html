@@ -1,18 +1,88 @@
-<html>
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <title>Contact</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactez-moi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #007BFF, #6C757D);
+            color: white;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #0056b3;
+        }
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 80px);
+        }
+        form {
+            background-color: white;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        textarea {
+            resize: none;
+        }
+        button {
+            width: 100%;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif;">
-    <h2>Contactez-moi</h2>
-    <form method="post">
-        <label for="nom">Nom :</label><br/>
-        <input type="text" id="nom" name="nom" required/><br/><br/>
-        <label for="prenom">Prénom :</label><br/>
-        <input type="text" id="prenom" name="prenom" required/><br/><br/>
-        <label for="message">Message :</label><br/>
-        <textarea id="message" name="message" required></textarea><br/><br/>
-        <input type="submit" value="Envoyer"/>
-    </form>
+<body>
+    <header>
+        <h1>Contactez-moi</h1>
+    </header>
+    <main>
+        <form method="post" action="#">
+            <h2>Laissez-moi un message</h2>
+            
+            <label for="nom">Nom :</label><br>
+            <input type="text" id="nom" name="nom" placeholder="Votre nom" required><br>
+
+            <label for="prenom">Prénom :</label><br>
+            <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required><br>
+
+            <label for="message">Message :</label><br>
+            <textarea id="message" name="message" rows="5" placeholder="Votre message ici..." required></textarea><br>
+
+            <button type="submit">Envoyer</button>
+        </form>
+    </main>
 </body>
 </html>
