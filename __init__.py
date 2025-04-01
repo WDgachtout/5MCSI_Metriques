@@ -35,8 +35,8 @@ def histogramme():
 def contact():
     return render_template("contact.html")
 
-@app.route('/commits/')
-def commits():
+@app.route('/api/commits/')
+def api_commits():
     # URL de l'API GitHub pour récupérer les commits
     url = "https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits"
     
@@ -56,7 +56,14 @@ def commits():
             except KeyError:
                 continue
         
-        return render_template("commits.html", commits=commit_minutes)
+        return jsonify(commit_minutes)
+    
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": "Impossible de récupérer les données depuis l'API GitHub.", "details": str(e)})
+
+@app.route('/commits/')
+def commits():
+    return render_template("commits.html")
 
 if __name__ == "__main__":
   app.run(debug=True)
